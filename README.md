@@ -89,7 +89,7 @@ Verify installation (should see install in ```/opt/homebrew/bin/bash```):
 
 Allow new shell:
 
-```sudo vim /etc/shells``` and add ```/opt/homebrew/bin/bash``` to the file /bin/bash is already there
+```sudo vim /etc/shells``` and add ```/opt/homebrew/bin/bash``` to the file (/bin/bash is already there - it is the old version).
 
 Set as default shell:
 
@@ -99,11 +99,20 @@ Change for root user:
 
 ```sudo chsh -s /opt/homebrew/bin/bash```
 
-also need to change in System Preferences > Users & Groups.
+Also check in System Preferences > Users & Groups.
 
 Click the lock icon and enter your password. Hold the Ctrl key, click your user account’s name in the left pane, and select “Advanced Options." to change the shell to /opt/homebrew/bin/bash
 
+Add homebrew to path.
+
+echo "export PATH=/opt/homebrew/bin:$PATH" >> ~/.bash_profile && source ~/.bash_profile
+
+
 Reboot.
+
+check shell with:
+
+echo $SHELL
 
 Add some aliases to short cut commands, e.g.:
 
@@ -115,13 +124,13 @@ and add:
 
 ## Vim
 
-Default Vim is version 8.1.1312, update with:
+Default Vim is version  8.2.3489, update with:
 
 ```
 brew install vim
 ```
 
-Add alias to ```~/.bashrc``` file so homebrew version loads instead of system version:
+Add alias to ```~/.bash_profile``` file so homebrew version loads instead of system version:
 
 ```
 alias vim=/usr/local/bin/vim
