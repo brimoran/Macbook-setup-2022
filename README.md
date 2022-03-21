@@ -1,7 +1,7 @@
-# Macbook-setup
+# Macbook-setup-2022
 Setting up a new Macbook
 
-MacBook Pro (14-inch, 2021, Four Thunderbolt 3 ports)
+MacBook Pro (14-inch, 2021)
 
 Apple M1 Pro
 
