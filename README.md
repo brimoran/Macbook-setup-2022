@@ -54,7 +54,7 @@ Show contents of public SSH key to copy to add to web git service:
 cat ~/.ssh/id_rsa.pub
 ```
 
-Add SSH key to webservice and then clone repo using SSH in the area you want it on your computer (for example create a Version Controlled folder in your home directory):
+Add SSH key to git web service and then clone repo using SSH in the area you want it on your computer (for example into a version-controlled folder in your home directory):
 
 e.g. with Gitlab
 
@@ -75,11 +75,11 @@ Install homebrew as a package manager:
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
-I followed the post-install instructions here to add to the default shell's path which was probably not needed as I am going to change that.
+I followed the post-install instructions shown in the terminal to add to the default shell's path which was probably not needed as I am going to change that next.
 
 ## bash
 
-Default is version 3.2.57(1)-release over 10 years old, update with:
+Using bash so can use same scripts as on Linux box.  Default is version 3.2.57(1)-release over 10 years old, update with:
 
 ```brew install bash```
 
@@ -89,7 +89,7 @@ Verify installation (should see install in ```/opt/homebrew/bin/bash```):
 
 Allow new shell:
 
-```sudo vim /etc/shells``` and add ```/opt/homebrew/bin/bash``` to the file (/bin/bash is already there - it is the old version).
+```sudo vim /etc/shells``` and add ```/opt/homebrew/bin/bash``` to the file (/bin/bash is already there - this is the old version).
 
 Set as default shell:
 
@@ -99,26 +99,21 @@ Change for root user:
 
 ```sudo chsh -s /opt/homebrew/bin/bash```
 
-Also check in System Preferences > Users & Groups.
+Also check in System Preferences > Users & Groups by clicking the lock icon and entering your password. Hold the Ctrl key, click the user account name in the left pane, and select “Advanced Options." Make sure the shell is /opt/homebrew/bin/bash.
 
-Click the lock icon and enter your password. Hold the Ctrl key, click your user account’s name in the left pane, and select “Advanced Options." to change the shell to /opt/homebrew/bin/bash
+Add homebrew to bash path:
 
-Add homebrew to path.
-
-echo "export PATH=/opt/homebrew/bin:$PATH" >> ~/.bash_profile && source ~/.bash_profile
-
-
-Reboot.
+```echo "export PATH=/opt/homebrew/bin:$PATH" >> ~/.bash_profile && source ~/.bash_profile```
 
 check shell with:
 
-echo $SHELL
+```echo $SHELL```
 
 Add some aliases to short cut commands, e.g.:
 
 ``vim .bash_profile``
 
-and add:
+and for example add:
 
 ``alias work='ssh YOURUSERNAME@SERVERIPADDRESS'``
 
@@ -133,7 +128,11 @@ brew install vim
 Add alias to ```~/.bash_profile``` file so homebrew version loads instead of system version:
 
 ```
-alias vim=/usr/local/bin/vim
+which -a vim
+```
+
+```
+alias vim=/opt/homebrew/bin/vim
 ```
 
 Then let's install VimPlug:
@@ -157,39 +156,19 @@ And then install the plug ins from within the .vimrc file in Vim by typing:
 :PlugInstall
 ```
 
-## LaTeX
+## LaTeX and Ghostscript
 
-MacTex 2020 comes with ghostscript 9.5 so this will be fine.  Notes below left for posterity but I've since given up on this approach as it was difficult to update individual packages if a new version of LaTeX was released, so instead head to:
+MacTex 2021 comes with ghostscript 9.53.3 to compress pdfs.  So head to:
 
 https://www.tug.org/mactex/mactex-download.html
 
 and download and install MacTeX.
 
-Using homebrew for the install as otherwise the MacTex installation of ghostscript can conflict with other homebrew packages.  (Ghostscript is useful to shrink pdf files.)
+Open Texshop which will be installed via GUI and check Preferences > Engine for location Path, in my case /Library/TeX/texbin, so...
 
-```brew cask install basictex```
+Add to Path:
 
-Note this is Basic Tex.  Then add path to bashrc:
-
-```PATH=/usr/local/texlive/2019basic/bin/x86_64-darwin:"${PATH}"```
-
-Update tlmgr:
-
-```
-sudo tlmgr update --self
-```
-
-Then add specific LaTeX packages as required with ```tlmgr```, e.g.:
-
-```sudo tlmgr install subfiles isodate substr enumitem datatool xfor fp pdfpages csquotes microtype hyphenat xcolor fancyhdr lastpage fira mweights fontaxes wrapfig capt-of mdframed needspace tcolorbox pgf environ trimspaces titlesec titlecaps ifnextok floatrow placeins adjustbox collectbox lcg relsize lineno pgfplots xltxtra float tabulary lipsum marginnote import l3backend l3kernel pagecolor titling footmisc rotating```
-
-### Ghostscript
-
-This is not needed now as it comes with MacTeX.
-
-I use Ghostscript to shrink PDF files:
-
-```brew install ghostscript```
+```echo "export PATH=/Library/TeX/texbin:$PATH" >> ~/.bash_profile && source ~/.bash_profile```
 
 ### Poppler
 
@@ -209,24 +188,17 @@ To OCR PDFs example: ```ocrmypdf -l eng input.pdf output.pdf```
 
 ```brew install ocrmypdf```
 
-###
+### Latex diff
 
 To show diffs in LaTeX:
 
 ```brew install latexdiff```
 
-###
+### Rename
 
 For flexible tools to rename file in BASH:
 
 ```brew install rename```
-
-### XQuartz
-
-Replace X11 with Xquartz to resolve some issues that I ran into with the installation of some R packages.
-
-```brew cask install xquartz```
-
 
 ### Mosh
 
@@ -234,9 +206,15 @@ For more persistent remote terminal access.
 
 ```brew install mosh```
 
+### XQuartz
+
+Replace X11 with Xquartz which is required by some R packages.
+
+```brew install --cask xquartz```
+
 ## R and R Studio
 
-Download and install R:
+Download and install R - be sure to choose the Apple silicon arm64 version:
 
 https://cran.r-project.org/
 
@@ -244,31 +222,99 @@ Enter R via the terminal as superuser:
 
 ```sudo R```
 
-Let's install the packages we need in one command:
+Let's see how many CPUs we are using:
+
+```getOption("Ncpus", 1L)```
+
+Just 1. So how many can we use?
+
+```
+parallel::detectCores()
+```
+
+8, so let's use 6 to speed up install of packages:
+
+```
+options(Ncpus = 6)
+```
+
+Confirm:
+
+```
+getOption("Ncpus", 1L)
+```
+
+And then:
 
 ```install.packages(c("ggplot2","tidyverse","knitr","ggthemes","scales","ggmap","plotly","ggfortify","leaflet","leaflet.extras","rgdal","forecast","treemapify","dbscan","survival","googleVis","rmarkdown","flexdashboard","highcharter","devtools","maptools","mapview","treemap","networkD3","visNetwork","DiagrammeR","DT","ggcorrplot","Hmisc","anomalize", "fpp2", "h2o", "sweep", "timetk", "xgboost", "prophet", "survminer","ggwordcloud", "ggsn", "formattable", "IMD", "car"))```
 
-This will take a while.
+This will take about 30 minutes.
 
-After it complete to enable mapshot to work:
+After it completes, to enable mapshot to work:
 
 ```webshot::install_phantomjs()```
 
 ```q()``` to exit R
 
+However we got an unexpected error on our big install of packages:
+
+```
+Warning message:
+In install.packages(c("ggplot2", "tidyverse", "knitr", "ggthemes",  :
+  installation of one or more packages failed,
+  probably ‘rgdal’
+```
+
+This may be a compilation issue so downloaded gnu fortran for arm as linked from https://cran.r-project.org/ in case that is the reason.
+
+copied to /opt/R/arm64 and then add to PATH with:
+
+```echo "export PATH=/opt/R/arm64:$PATH" >> ~/.bash_profile && source ~/.bash_profile```
+
+Then attempting to install rgdal package from within R, a different error message:
+
+```configure: error: gdal-config not found or not executable.```
+
+So next trying to install gdal, out of R and:
+
+```brew install gdal```
+
+and
+
+```brew install proj```
+
+And then back to R to install rgdal which will now work.
+
+test packages can be loaded.
+
+mapview (requires terra?), h2o, ggsn (requires sf?)
+(not sure if these are connectivity issues), 
+
+
+
+
+
+
 Download and install R Studio:
 
 https://rstudio.com/products/rstudio/download/
 
-## Python 3 ~~packages~~
+add gruvbox theme: https://github.com/tallguyjenks/gruvboxr
 
-~~Python 3 will have been installed as a dependancy at some point.  Add additional packages using ```pip3 install```~~
 
-~~```pip3 install pandas numpy matplotlib sklearn quandl xlsx2csv boto3```~~
+## Python - additionals
 
-~~(xlsx2csv is a useful tool to convert excel files into csv files with for example ```xlsx2csv -s 0 in.xlsx output```)~~
+Python 3 will have already been installed in this process through brew.
 
-Now think it is better to install python through brew as ended up with two versions of Python 3 - one 3.7 and one 3.9.
+
+python3 -m pip install --upgrade pip
+
+and
+
+``pip3 install openpyxl``
+
+
+UP TO HERE
 
 Ended up making sure that ``python`` and ``pip`` call most up to date versions by:
 
@@ -276,13 +322,9 @@ Ended up making sure that ``python`` and ``pip`` call most up to date versions b
 
 See: https://stackoverflow.com/questions/51885394/brew-install-doesnt-link-python3
 
-and installing again:
 
-``pip install six``
 
-and
 
-``pip install openpyxl``
 
 and fixing ghostscript by:
 
@@ -318,13 +360,16 @@ Install with:
 
 ### EPS2PGF
 
-Download from:
-
 https://sourceforge.net/projects/eps2pgf/files/latest/download
+
+
+This does though:
+
+https://www.onworks.net/software/windows/app-eps2pgf
 
 ## Acorn
 
-Nice graphics editor:
+Nice commercial graphics editor:
 
 https://flyingmeat.com/acorn/
 
@@ -349,3 +394,10 @@ https://fonts.google.com/specimen/Fira+Sans?selection.family=Fira+Sans
 Tex Gyre Heroes - download and batch install by unpacking, and selecting all files with Finder and dragging into Font Book:
 
 https://www.fontsquirrel.com/fonts/tex-gyre-heros
+
+## Copy non-backed up files from old machine
+
+In my case:
+
+r-resources
+shapefiles
