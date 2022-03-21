@@ -246,7 +246,7 @@ getOption("Ncpus", 1L)
 
 And then:
 
-```install.packages(c("ggplot2","tidyverse","knitr","ggthemes","scales","ggmap","plotly","ggfortify","leaflet","leaflet.extras","rgdal","forecast","treemapify","dbscan","survival","googleVis","rmarkdown","flexdashboard","highcharter","devtools","maptools","mapview","treemap","networkD3","visNetwork","DiagrammeR","DT","ggcorrplot","Hmisc","anomalize", "fpp2", "h2o", "sweep", "timetk", "xgboost", "prophet", "survminer","ggwordcloud", "ggsn", "formattable", "IMD", "car"))```
+```install.packages(c("ggplot2","tidyverse","knitr","ggthemes","scales","ggmap","plotly","ggfortify","leaflet","leaflet.extras","rgdal","forecast","treemapify","dbscan","survival","googleVis","rmarkdown","flexdashboard","highcharter","devtools","maptools","mapview","treemap","networkD3","visNetwork","DiagrammeR","DT","ggcorrplot","Hmisc","anomalize", "fpp2", "h2o", "sweep", "timetk", "xgboost", "prophet", "survminer","ggwordcloud", "ggsn", "formattable", "IMD", "car", "maps", "this.path"))```
 
 This will take about 30 minutes.
 
@@ -285,14 +285,26 @@ and
 
 And then back to R to install rgdal which will now work.
 
-test packages can be loaded.
+test if all packages can be loaded.
 
 mapview (requires terra?), h2o, ggsn (requires sf?)
-(not sure if these are connectivity issues), 
+
+solution for sf from: https://github.com/r-spatial/sf/issues/1317#issuecomment-603928225
+remotes::install_github("RcppCore/Rcpp")
+install.packages('sf', configure.args = '--with-gdal-config=/usr/local/bin/gdal-config --with-geos-config=/usr/local/bin/geos-config --with-proj-include=/usr/local/include/ --with-proj-lib=/usr/local/lib/', configure.vars = 'GDAL_DATA=/usr/local/opt/gdal/share/gdal/')
+
+Then ggsn and h2o could be installed
+
+mapview installed but on load requires terra
 
 
 
+install.packages("gpclib", type = "source") 
 
+
+install.packages("rgeos")
+
+install.packages("mapproj")
 
 
 Download and install R Studio:
@@ -324,15 +336,6 @@ See: https://stackoverflow.com/questions/51885394/brew-install-doesnt-link-pytho
 
 
 
-
-
-and fixing ghostscript by:
-
-``sudo chown -R `whoami` /usr/local/share/doc/ghostscript``
-
-``brew link --overwrite ghostscript``
-
-See: https://stackoverflow.com/questions/25695934/ghostscript-not-writable
 
 ## Java
 
