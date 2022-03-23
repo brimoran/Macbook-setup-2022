@@ -325,6 +325,14 @@ and
 
 ``pip3 install openpyxl``
 
+and
+
+```pip3 install xlsx2csv```
+
+and so available in Python 2:
+
+```sudo easy_install xlsx2csv```
+
 
 UP TO HERE
 
