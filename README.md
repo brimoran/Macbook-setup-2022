@@ -256,6 +256,8 @@ After it completes, to enable mapshot to work:
 
 ```q()``` to exit R
 
+### Troubleshooting R install
+
 However we got an unexpected error on our big install of packages:
 
 ```
@@ -271,43 +273,42 @@ copied to /opt/R/arm64 and then add to PATH with:
 
 ```echo "export PATH=/opt/R/arm64:$PATH" >> ~/.bash_profile && source ~/.bash_profile```
 
-Then attempting to install rgdal package from within R, a different error message:
+Then attempting to install rgdal package from within R, and we get a different error message:
 
 ```configure: error: gdal-config not found or not executable.```
 
-So next trying to install gdal, out of R and:
+So next trying to install gdal, quit R and:
 
 ```brew install gdal```
 
-and
+and also
 
 ```brew install proj```
 
 And then back to R to install rgdal which will now work.
 
+Also:
+
+```install.packages("gpclib", type = "source")```
+
+```install.packages("rgeos")```
+
+```install.packages("mapproj")```
+
 test if all packages can be loaded.
 
-mapview (requires terra?), h2o, ggsn (requires sf?)
+mapview errors on load (requires terra?), as do h2o and  ggsn (requires sf?)
 
 solution for sf from: https://github.com/r-spatial/sf/issues/1317#issuecomment-603928225
-remotes::install_github("RcppCore/Rcpp")
-install.packages('sf', configure.args = '--with-gdal-config=/usr/local/bin/gdal-config --with-geos-config=/usr/local/bin/geos-config --with-proj-include=/usr/local/include/ --with-proj-lib=/usr/local/lib/', configure.vars = 'GDAL_DATA=/usr/local/opt/gdal/share/gdal/')
 
-Then ggsn and h2o could be installed
+```remotes::install_github("RcppCore/Rcpp")
+install.packages('sf', configure.args = '--with-gdal-config=/usr/local/bin/gdal-config --with-geos-config=/usr/local/bin/geos-config --with-proj-include=/usr/local/include/ --with-proj-lib=/usr/local/lib/', configure.vars = 'GDAL_DATA=/usr/local/opt/gdal/share/gdal/')```
 
-mapview installed but on load requires terra
+i.e. looks like have to specify where gdal-config and proj are located.
 
+Everything now works
 
-
-install.packages("gpclib", type = "source") 
-
-
-install.packages("rgeos")
-
-install.packages("mapproj")
-
-
-Download and install R Studio:
+## Download and install R Studio:
 
 https://rstudio.com/products/rstudio/download/
 
