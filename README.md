@@ -329,52 +329,15 @@ and
 
 ```pip3 install xlsx2csv```
 
-and so available in Python 2:
+and so available in Python 2 just in case I occassionally fail to reference python3:
 
 ```sudo easy_install xlsx2csv```
 
+## EPS2PGF
 
-UP TO HERE
+The usual link is dead: https://sourceforge.net/projects/eps2pgf/files/latest/download
 
-Ended up making sure that ``python`` and ``pip`` call most up to date versions by:
-
-``export PATH=/usr/local/opt/python/libexec/bin:$PATH``
-
-See: https://stackoverflow.com/questions/51885394/brew-install-doesnt-link-python3
-
-
-
-
-## Java
-
-Necessary for some utilities.
-
-Download and install the runtime environment:
-
-https://www.java.com/en/download/mac_download.jsp
-
-And also the development kit:
-
-https://www.oracle.com/technetwork/java/javase/downloads/jdk13-downloads-5672538.html
-
-### datatooltk
-
-Speeds up the handling of data in LaTeX.
-
-Download from:
-
-https://ctan.org/pkg/datatooltk
-
-Install with:
-
-```sudo java -jar datatooltk-installer.jar```
-
-### EPS2PGF
-
-https://sourceforge.net/projects/eps2pgf/files/latest/download
-
-
-This does though:
+This one works though:
 
 https://www.onworks.net/software/windows/app-eps2pgf
 
@@ -390,7 +353,7 @@ https://www.sublimetext.com/
 
 ## Keynote
 
-Download from App Store.
+Pre-installed.
 
 ## Microsoft Office
 
@@ -408,7 +371,8 @@ https://www.fontsquirrel.com/fonts/tex-gyre-heros
 
 ## Copy non-backed up files from old machine
 
-In my case:
+In my case, two folders:
 
-r-resources
-shapefiles
+```r-resources``` - contains R functions I use a lot.
+
+```shapefiles``` - contains large shapefiles that I point to from other R scripts.
