@@ -306,7 +306,7 @@ remotes::install_github("RcppCore/Rcpp")
 install.packages('sf', configure.args = '--with-gdal-config=/usr/local/bin/gdal-config --with-geos-config=/usr/local/bin/geos-config --with-proj-include=/usr/local/include/ --with-proj-lib=/usr/local/lib/', configure.vars = 'GDAL_DATA=/usr/local/opt/gdal/share/gdal/')
 ```
 
-i.e. looks like have to specify where gdal-config and proj are located.
+I am not sure why this worked as the files this seems to point to don't seem to exist but it did work so  ¯\_(ツ)_/¯
 
 Everything now works
 
