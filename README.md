@@ -372,6 +372,8 @@ Tex Gyre Heroes - download and batch install by unpacking, and selecting all fil
 
 https://www.fontsquirrel.com/fonts/tex-gyre-heros
 
+Open Font Book.  Some fonts may be greyed-out and this caused me some issues with the hc_theme in gg_themes (the error message was "polygon edge not found").  So download missing fonts as needed.
+
 ## Copy non-backed up files from old machine
 
 In my case, two folders:
