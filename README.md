@@ -336,6 +336,18 @@ and so available in Python 2 just in case I occassionally fail to reference pyth
 
 ```sudo easy_install xlsx2csv```
 
+To work with password protected Excel files:
+
+```pip3 install msoffcrypto-tool```
+
+### Java
+
+Required for example for R package xlsx to write xlsx files.  Just manually download and install from:
+
+https://www.oracle.com/java/technologies/downloads/
+
+```brew install java```
+
 ## EPS2PGF
 
 The usual link is dead: https://sourceforge.net/projects/eps2pgf/files/latest/download
