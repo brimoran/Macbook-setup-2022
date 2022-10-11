@@ -374,6 +374,14 @@ Pre-installed.
 
 https://account.microsoft.com/services/office/install
 
+## AWS Command Line Interface
+
+Download from: https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+
+```aws configure```
+
+Input access key id, access key and region (eu-west-2).
+
 ## Additional Fonts
 
 Fira Sans - download and batch install by unpacking, and selecting all files with Finder and dragging into Font Book:
