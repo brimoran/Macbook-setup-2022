@@ -212,6 +212,11 @@ Replace X11 with Xquartz which is required by some R packages.
 
 ```brew install --cask xquartz```
 
+### Node
+
+```brew install node```
+
+
 ## R and R Studio
 
 Download and install R - be sure to choose the Apple silicon arm64 version:
@@ -381,6 +386,12 @@ Download from: https://docs.aws.amazon.com/cli/latest/userguide/getting-started-
 ```aws configure```
 
 Input access key id, access key and region (eu-west-2).
+
+## Mermaid filter
+
+https://github.com/raghur/mermaid-filter
+
+```npm install --global mermaid-filter```
 
 ## Additional Fonts
 
